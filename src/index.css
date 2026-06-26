@@ -4,38 +4,38 @@
 
 @layer base {
   :root {
-    --background: 40 30% 98%;
-    --foreground: 165 35% 10%;
+    --background: 36 40% 97%;
+    --foreground: 25 30% 22%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 165 35% 10%;
+    --card: 36 45% 99%;
+    --card-foreground: 25 30% 22%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 165 35% 10%;
+    --popover: 36 45% 99%;
+    --popover-foreground: 25 30% 22%;
 
-    --primary: 165 60% 12%;
-    --primary-foreground: 40 30% 97%;
+    --primary: 200 45% 32%;
+    --primary-foreground: 36 40% 97%;
 
-    --secondary: 42 35% 92%;
-    --secondary-foreground: 165 60% 12%;
+    --secondary: 36 35% 90%;
+    --secondary-foreground: 25 30% 22%;
 
-    --muted: 42 25% 94%;
-    --muted-foreground: 165 12% 40%;
+    --muted: 36 25% 93%;
+    --muted-foreground: 25 15% 48%;
 
-    --accent: 40 55% 52%;
-    --accent-foreground: 165 60% 12%;
+    --accent: 42 65% 58%;
+    --accent-foreground: 25 30% 22%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 42 20% 88%;
-    --input: 42 20% 88%;
-    --ring: 40 55% 52%;
+    --border: 36 22% 86%;
+    --input: 36 22% 86%;
+    --ring: 42 65% 58%;
 
-    --gold: 40 60% 52%;
-    --gold-light: 42 70% 68%;
-    --emerald: 165 60% 12%;
-    --emerald-deep: 168 70% 7%;
+    --gold: 42 65% 58%;
+    --gold-light: 42 75% 72%;
+    --emerald: 200 45% 32%;
+    --emerald-deep: 205 50% 22%;
 
     --radius: 0.5rem;
 
@@ -152,7 +152,7 @@
   .emerald-gradient {
     background: radial-gradient(
       120% 120% at 20% 0%,
-      hsl(var(--emerald)) 0%,
+      hsl(205 42% 38%) 0%,
       hsl(var(--emerald-deep)) 70%
     );
   }
