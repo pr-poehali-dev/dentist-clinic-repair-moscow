@@ -5,9 +5,10 @@ import { toast } from '@/hooks/use-toast';
 
 const LEAD_URL = 'https://functions.poehali.dev/81039135-d68c-409a-befe-153c11ebfba4';
 
-const HERO = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/cbf210ba-35bd-4c43-ba07-7b3940c1ed8e.jpg';
-const BEFORE = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/c3157c3b-7aa6-44ae-b7fe-aa7478f5fe20.jpg';
-const AFTER = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/6a6f8b20-695d-48a7-b3f2-02bf7587619d.jpg';
+const HERO = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/efc4e121-af46-46a0-a544-876d3a9871ee.jpg';
+const BEFORE = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/7e5122d7-ea15-4bfb-8cfa-c46c8ce01496.jpg';
+const AFTER = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/ca5fb9f7-0ff6-441d-9e35-cf688ab89463.jpg';
+const WAITING = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/69bb935a-e593-4b58-89f2-d07fabc1e593.jpg';
 
 const NAV = [
   { label: 'Услуги', href: '#services' },
@@ -37,10 +38,10 @@ const FILTERS = [
 const WORKS = [
   { type: 'cabinet', title: 'Стоматологический кабинет', area: '24 м²', district: 'Хамовники', before: BEFORE, after: HERO },
   { type: 'reception', title: 'Зона ресепшн', area: '36 м²', district: 'Пресня', before: BEFORE, after: AFTER },
-  { type: 'waiting', title: 'Зона ожидания', area: '42 м²', district: 'Арбат', before: BEFORE, after: AFTER },
+  { type: 'waiting', title: 'Зона ожидания', area: '42 м²', district: 'Арбат', before: BEFORE, after: WAITING },
   { type: 'cabinet', title: 'Хирургический кабинет', area: '28 м²', district: 'Тверская', before: BEFORE, after: HERO },
   { type: 'reception', title: 'Холл и регистратура', area: '50 м²', district: 'Сокол', before: BEFORE, after: AFTER },
-  { type: 'waiting', title: 'Детская зона ожидания', area: '30 м²', district: 'Митино', before: BEFORE, after: HERO },
+  { type: 'waiting', title: 'Детская зона ожидания', area: '30 м²', district: 'Митино', before: BEFORE, after: WAITING },
 ];
 
 const PROCESS = [
@@ -51,9 +52,9 @@ const PROCESS = [
 ];
 
 const BLOG = [
-  { tag: 'Стандарты', title: 'СанПиН 2025: что изменилось для стоматологий', date: '12 июня' },
-  { tag: 'Дизайн', title: 'Премиальный интерьер клиники: 7 принципов', date: '4 июня' },
-  { tag: 'Бюджет', title: 'Из чего складывается стоимость ремонта под ключ', date: '28 мая' },
+  { tag: 'Стандарты', title: 'СанПиН 2025: что изменилось для стоматологий', date: '12 июня', img: HERO },
+  { tag: 'Дизайн', title: 'Премиальный интерьер клиники: 7 принципов', date: '4 июня', img: AFTER },
+  { tag: 'Бюджет', title: 'Из чего складывается стоимость ремонта под ключ', date: '28 мая', img: WAITING },
 ];
 
 function BeforeAfter({ before, after }: { before: string; after: string }) {
@@ -229,7 +230,7 @@ const Index = () => {
       {/* About */}
       <section id="about" className="container py-28 grid lg:grid-cols-2 gap-16 items-center">
         <div className="relative">
-          <img src={AFTER} alt="О компании" className="w-full aspect-[5/4] object-cover rounded-sm" />
+          <img src={WAITING} alt="О компании" className="w-full aspect-[5/4] object-cover rounded-sm" />
           <div className="absolute -bottom-8 -right-4 bg-emerald text-primary-foreground p-8 rounded-sm max-w-[220px] hidden md:block">
             <div className="font-display text-5xl text-gold mb-1">12</div>
             <p className="text-sm text-primary-foreground/70">лет строим медицинские пространства в Москве</p>
@@ -284,7 +285,7 @@ const Index = () => {
           {BLOG.map((b) => (
             <article key={b.title} className="group cursor-pointer">
               <div className="aspect-[3/2] overflow-hidden rounded-sm mb-5">
-                <img src={HERO} alt={b.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={b.img} alt={b.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
               </div>
               <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground mb-3">
                 <span className="text-gold">{b.tag}</span> · <span>{b.date}</span>
