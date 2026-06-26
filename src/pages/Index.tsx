@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/hooks/use-toast';
+
+const LEAD_URL = 'https://functions.poehali.dev/81039135-d68c-409a-befe-153c11ebfba4';
 
 const HERO = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/cbf210ba-35bd-4c43-ba07-7b3940c1ed8e.jpg';
 const BEFORE = 'https://cdn.poehali.dev/projects/a0a512a0-1999-4440-b1b6-0f6f168097ed/files/c3157c3b-7aa6-44ae-b7fe-aa7478f5fe20.jpg';
@@ -81,6 +84,32 @@ function BeforeAfter({ before, after }: { before: string; after: string }) {
 const Index = () => {
   const [filter, setFilter] = useState('all');
   const visible = WORKS.filter((w) => filter === 'all' || w.type === filter);
+
+  const [form, setForm] = useState({ name: '', phone: '', message: '' });
+  const [sending, setSending] = useState(false);
+
+  const submitLead = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.phone.trim()) {
+      toast({ title: 'Заполните имя и телефон', variant: 'destructive' });
+      return;
+    }
+    setSending(true);
+    try {
+      const res = await fetch(LEAD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      toast({ title: 'Заявка отправлена!', description: 'Свяжемся с вами в течение дня.' });
+      setForm({ name: '', phone: '', message: '' });
+    } catch {
+      toast({ title: 'Не удалось отправить', description: 'Попробуйте позже или позвоните нам.', variant: 'destructive' });
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground antialiased">
@@ -279,11 +308,11 @@ const Index = () => {
                 <p className="flex items-center gap-3"><Icon name="MapPin" size={18} className="text-gold" /> Москва, ул. Премиальная, 1</p>
               </div>
             </div>
-            <form className="bg-primary-foreground/5 backdrop-blur p-8 rounded-sm border border-primary-foreground/10 space-y-4">
-              <input placeholder="Ваше имя" className="w-full bg-transparent border border-primary-foreground/20 px-4 py-3 rounded-none placeholder:text-primary-foreground/40 focus:border-gold outline-none transition-colors" />
-              <input placeholder="Телефон" className="w-full bg-transparent border border-primary-foreground/20 px-4 py-3 rounded-none placeholder:text-primary-foreground/40 focus:border-gold outline-none transition-colors" />
-              <textarea placeholder="Площадь и пожелания" rows={3} className="w-full bg-transparent border border-primary-foreground/20 px-4 py-3 rounded-none placeholder:text-primary-foreground/40 focus:border-gold outline-none transition-colors resize-none" />
-              <Button className="w-full gold-gradient text-emerald hover:opacity-90 rounded-none h-12 text-base font-medium">Получить смету</Button>
+            <form onSubmit={submitLead} className="bg-primary-foreground/5 backdrop-blur p-8 rounded-sm border border-primary-foreground/10 space-y-4">
+              <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Ваше имя" className="w-full bg-transparent border border-primary-foreground/20 px-4 py-3 rounded-none placeholder:text-primary-foreground/40 focus:border-gold outline-none transition-colors" />
+              <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Телефон" className="w-full bg-transparent border border-primary-foreground/20 px-4 py-3 rounded-none placeholder:text-primary-foreground/40 focus:border-gold outline-none transition-colors" />
+              <textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Площадь и пожелания" rows={3} className="w-full bg-transparent border border-primary-foreground/20 px-4 py-3 rounded-none placeholder:text-primary-foreground/40 focus:border-gold outline-none transition-colors resize-none" />
+              <Button type="submit" disabled={sending} className="w-full gold-gradient text-emerald hover:opacity-90 rounded-none h-12 text-base font-medium disabled:opacity-60">{sending ? 'Отправляем…' : 'Получить смету'}</Button>
             </form>
           </div>
         </div>
